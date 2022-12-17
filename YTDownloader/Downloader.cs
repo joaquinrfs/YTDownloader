@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.WindowsAPICodePack.Shell;
+using System.Diagnostics;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace YTDownloader
 {
@@ -40,14 +42,43 @@ namespace YTDownloader
 
 			pythonPip.Dispose();
 		}
-		internal static void Download()
+
+		/// <summary>
+		/// Interface for the downloader program.
+		/// </summary>
+		/// <param name="url">URL to the video.</param>
+		/// <param name="path">Where to download the file.</param>
+		/// <param name="type">Type of file to download: 0 for video, 1 for audio.</param>
+		internal static Task<bool> Download(string url, string path, byte type)
 		{
+			string argFile = "";
+
+			if (type == 0)
+			{
+				if (Globals.FFMPEG == true) { argFile = "-f bestvideo+bestaudio"; }
+				else { argFile = "-f best"; }
+			}
+			else if (type == 1) { argFile = "-f bestaudio"; }
+
 			Process ytDownloder = new Process();
 			ytDownloder.StartInfo.UseShellExecute = false;
 			ytDownloder.StartInfo.CreateNoWindow = true;
+			if (Directory.Exists(path)) { ytDownloder.StartInfo.WorkingDirectory = path; }
 			ytDownloder.StartInfo.FileName = "yt-dlp";
-			ytDownloder.StartInfo.Arguments = "-f bestvideo+";
+			ytDownloder.StartInfo.Arguments = $"{argFile} {url}";
 			ytDownloder.Start();
+
+			{
+				bool exit = false;
+				while (exit == false)
+				{
+					Thread.Sleep(500);
+					if (ytDownloder.HasExited) { exit = true; }
+				}
+			}
+
+			return Task.FromResult(true);
+			//ytDownloder.Dispose();
 		}
 	}
 }

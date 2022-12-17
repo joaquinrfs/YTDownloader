@@ -97,6 +97,33 @@ namespace YTDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download successfully.
+        /// </summary>
+        internal static string StatusDownloadSuccess {
+            get {
+                return ResourceManager.GetString("StatusDownloadSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loaded successfully.
+        /// </summary>
+        internal static string StatusLoaded {
+            get {
+                return ResourceManager.GetString("StatusLoaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Downloading....
+        /// </summary>
+        internal static string TitleDownloading {
+            get {
+                return ResourceManager.GetString("TitleDownloading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error!.
         /// </summary>
         internal static string TitleError {

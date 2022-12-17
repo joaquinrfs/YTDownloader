@@ -129,6 +129,15 @@
   <data name="PythonNotFound" xml:space="preserve">
     <value>"Python" could not be found, you can download it from: https://www.python.org/downloads/</value>
   </data>
+  <data name="StatusDownloadSuccess" xml:space="preserve">
+    <value>Download successfully</value>
+  </data>
+  <data name="StatusLoaded" xml:space="preserve">
+    <value>Loaded successfully</value>
+  </data>
+  <data name="TitleDownloading" xml:space="preserve">
+    <value>Downloading...</value>
+  </data>
   <data name="TitleError" xml:space="preserve">
     <value>Error!</value>
   </data>
