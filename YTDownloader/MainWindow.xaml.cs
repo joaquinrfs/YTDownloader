@@ -27,7 +27,7 @@ namespace YTDownloader
 
 		private void TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
 		{
-			string regEx = @"^(https://)?(www\.)?youtu(be\.com/watch\?v=|\.be/)[a-zA-Z0-9]{11}(&[a-zA-Z0-9\-_]+=[a-zA-Z0-9]+)*$";
+			string regEx = @"^(https://)?(www\.)?youtu(be\.com/watch\?v=|\.be/)[a-zA-Z0-9\-_]{11}(&[a-zA-Z0-9\-_]+=[a-zA-Z0-9]+)*$";
 			Match regMatch = Regex.Match(urlBox.Text, regEx);
 			if (urlBox.Text.Length > 0 && regMatch.Success)
 			{
