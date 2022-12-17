@@ -1,0 +1,40 @@
+﻿<Window x:Class="YTDownloader.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:YTDownloader"
+        mc:Ignorable="d"
+        Title="YTDownloader" Width="350" Height="200" ResizeMode="NoResize">
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*" />
+			<ColumnDefinition Width="280" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="80" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="22" />
+		</Grid.RowDefinitions>
+
+		<StackPanel Grid.Column="1" Grid.Row="1">
+			<Label Margin="0 0 0 0" Padding="0 2" Target="{Binding ElementName=urlBox}" Content="URL:" />
+			<TextBox Name="urlBox" Height="20" TextChanged="TextChanged" />
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="80" />
+					<ColumnDefinition Width="80" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
+				<Button Name="downloadVideo" Grid.Column="1" Margin="0 10 5 0" Content="Video" IsEnabled="False" Cursor="Hand" Click="downloadVideo_Click" />
+				<Button Name="downloadAudio" Grid.Column="2" Margin="5 10 0 0" Content="Audio" IsEnabled="False" Cursor="Hand" Click="downloadAudio_Click" />
+			</Grid>
+		</StackPanel>
+		<StatusBar Grid.ColumnSpan="3" Grid.Row="4">
+			<TextBlock Name="statusInfo" Text="" />
+		</StatusBar>
+	</Grid>
+</Window>
