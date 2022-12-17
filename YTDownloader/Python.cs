@@ -1,11 +1,45 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace YTDownloader
 {
 	internal static class Python
 	{
 		internal static void Check()
+		{
+			// Check for Python's responseProcess{
+			Process pythonVersion = new Process();
+			pythonVersion.StartInfo.UseShellExecute = false;
+			pythonVersion.StartInfo.CreateNoWindow = true;
+			pythonVersion.StartInfo.RedirectStandardOutput = true;
+			pythonVersion.StartInfo.FileName = "python";
+			pythonVersion.StartInfo.Arguments = "-c \"import sys; print(sys.executable)\"";
+			pythonVersion.Start();
+			
+			{
+				bool exit = false;
+				byte timer = 0;
+				while (exit == false)
+				{
+					Thread.Sleep(200);
+					if (timer >= 60 || pythonVersion.HasExited) { exit = true; }
+					timer++;
+				}
+			}
+			
+			using (StreamReader reader = pythonVersion.StandardOutput)
+			{
+				string path = reader.ReadLine();
+				FileInfo file= new FileInfo(path);
+				if (file.Name.ToLower() == "python.exe") { Globals.PYTHON = file.DirectoryName.ToLower() + "\\"; }
+			}
+		}
+		internal static void CheckLegacy()
 		{
 			// Checks for "Python in the $PATH"
 			string fullPath = Environment.GetEnvironmentVariable("PATH");
