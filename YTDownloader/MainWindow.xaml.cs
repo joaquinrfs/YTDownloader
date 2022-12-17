@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using YTDownloader.Resources;
 
 namespace YTDownloader
 {
@@ -10,14 +11,16 @@ namespace YTDownloader
 		public MainWindow()
 		{
 			InitializeComponent();
+			Loaded += UpdateStatus;
 		}
 
 		public async void UpdateStatus(object sender, RoutedEventArgs e)
 		{
+			Globals.STATUS = Lang.StatusLoaded;
 			while (true)
 			{
 				statusInfo.Text = Globals.STATUS;
-				await Task.Run(() => Task.Delay(100));
+				await Task.Delay(200);
 			}
 			
 		}
@@ -38,25 +41,39 @@ namespace YTDownloader
 			}
 		}
 
-		private void downloadVideo_Click(object sender, RoutedEventArgs e)
+		private async void downloadVideo_Click(object sender, RoutedEventArgs e)
 		{
-			string saveLocation = null;
+			ProgressWindow progressWindow = new ProgressWindow();
+			progressWindow.Title = Lang.TitleDownloading;
+
 			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
 			folderDialog.IsFolderPicker = true;
 			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
 			{
-				saveLocation = folderDialog.FileName;
+				progressWindow.Show();
+				string taskUrl = urlBox.Text, taskPath = folderDialog.FileName;
+				Task<bool> t = Task.Run(() => Downloader.Download(taskUrl, taskPath, 0));
+				await Task.WhenAll(t);
+				if (t.Result == true) { Globals.STATUS = Lang.StatusDownloadSuccess; }
+				progressWindow.Close();
 			}
 		}
 
-		private void downloadAudio_Click(object sender, RoutedEventArgs e)
+		private async void downloadAudio_Click(object sender, RoutedEventArgs e)
 		{
-			string saveLocation = null;
+			ProgressWindow progressWindow = new ProgressWindow();
+			progressWindow.Title = Lang.TitleDownloading;
+
 			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
 			folderDialog.IsFolderPicker = true;
 			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
 			{
-				saveLocation = folderDialog.FileName;
+				progressWindow.Show();
+				string taskUrl = urlBox.Text, taskPath = folderDialog.FileName;
+				Task<bool> t = Task.Run(() => Downloader.Download(taskUrl, taskPath, 1));
+				await Task.WhenAll(t);
+				if (t.Result == true) { Globals.STATUS = Lang.StatusDownloadSuccess; }
+				progressWindow.Close();
 			}
 		}
 	}

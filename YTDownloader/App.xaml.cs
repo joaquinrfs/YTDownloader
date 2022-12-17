@@ -8,8 +8,13 @@ namespace YTDownloader
 	{
 		protected override async void OnStartup(StartupEventArgs e)
 		{
+			// Language debugging
+			//Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo("es");
+			//Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo("es");
+
+
 			MainWindow = new MainWindow();
-			InstallWindow installWindow = new InstallWindow();
+			ProgressWindow installWindow = new ProgressWindow();
 			installWindow.Title = Lang.TitleInstalling;
 
 			await Task.Run(Python.Check);
@@ -31,12 +36,13 @@ namespace YTDownloader
 						await Task.WhenAll(downCheckTask);
 						installWindow.Close();
 						if (Globals.DOWNLOADER == false) { MessageBox.Show(Lang.DownloaderFailed, Lang.TitleError); }
-						else { MainWindow.Show(); }
+						else { MainWindow.ShowDialog(); }
 					}
 					else { MessageBox.Show(Lang.DownloaderDeny, Lang.TitleWarning); }
 				}
-				else { MainWindow.Show(); }
+				else { MainWindow.ShowDialog(); }
 			}
+			this.Shutdown();
 		}
 	}
 }
