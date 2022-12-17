@@ -1,8 +1,7 @@
 ﻿using Microsoft.WindowsAPICodePack.Dialogs;
 using System.Text.RegularExpressions;
-using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
-using YTDownloader.Resources;
 
 namespace YTDownloader
 {
@@ -11,43 +10,16 @@ namespace YTDownloader
 		public MainWindow()
 		{
 			InitializeComponent();
-
-			Python.Check();
-			if (Globals.PYTHON == null)
-			{
-				MessageBox.Show(Lang.PythonNotFound, Lang.TitleWarning);
-				this.Close();
-			}
-
-			Downloader.Check();
-			if (Globals.DOWNLOADER == false)
-			{
-				MessageBoxResult installDownloader = MessageBox.Show(Lang.DownloaderNotFound, Lang.TitleWarning, MessageBoxButton.YesNo);
-				if (installDownloader == MessageBoxResult.Yes)
-				{
-					Downloader.Install();
-					Downloader.Check();
-					if (Globals.DOWNLOADER == false)
-					{
-						MessageBox.Show(Lang.DownloaderFailed, Lang.TitleError);
-						this.Close();
-					}
-				}
-				else
-				{
-					MessageBox.Show(Lang.DownloaderDeny, Lang.TitleWarning);
-					this.Close();
-				}
-			}
 		}
 
-		private void UpdateStatus()
+		public async void UpdateStatus(object sender, RoutedEventArgs e)
 		{
 			while (true)
 			{
 				statusInfo.Text = Globals.STATUS;
-				Thread.Sleep(1000);
+				await Task.Run(() => Task.Delay(100));
 			}
+			
 		}
 
 		private void TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
@@ -68,17 +40,24 @@ namespace YTDownloader
 
 		private void downloadVideo_Click(object sender, RoutedEventArgs e)
 		{
+			string saveLocation = null;
 			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
 			folderDialog.IsFolderPicker = true;
-			folderDialog.ShowDialog();
-			string saveLocation = folderDialog.FileName;
+			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				saveLocation = folderDialog.FileName;
+			}
 		}
 
 		private void downloadAudio_Click(object sender, RoutedEventArgs e)
 		{
+			string saveLocation = null;
 			CommonOpenFileDialog folderDialog = new CommonOpenFileDialog();
 			folderDialog.IsFolderPicker = true;
-			folderDialog.ShowDialog();
+			if (folderDialog.ShowDialog() == CommonFileDialogResult.Ok)
+			{
+				saveLocation = folderDialog.FileName;
+			}
 		}
 	}
 }

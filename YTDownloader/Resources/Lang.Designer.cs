@@ -106,6 +106,15 @@ namespace YTDownloader.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Installing....
+        /// </summary>
+        internal static string TitleInstalling {
+            get {
+                return ResourceManager.GetString("TitleInstalling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Warning!.
         /// </summary>
         internal static string TitleWarning {

@@ -132,6 +132,9 @@
   <data name="TitleError" xml:space="preserve">
     <value>Error!</value>
   </data>
+  <data name="TitleInstalling" xml:space="preserve">
+    <value>Installing...</value>
+  </data>
   <data name="TitleWarning" xml:space="preserve">
     <value>Warning!</value>
   </data>

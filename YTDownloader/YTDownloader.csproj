@@ -64,8 +64,8 @@
     <Compile Include="Downloader.cs" />
     <Compile Include="FFmpeg.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="Installing.xaml.cs">
-      <DependentUpon>Installing.xaml</DependentUpon>
+    <Compile Include="InstallWindow.xaml.cs">
+      <DependentUpon>InstallWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Python.cs" />
     <Compile Include="Resources\Lang.Designer.cs">
@@ -73,7 +73,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Lang.resx</DependentUpon>
     </Compile>
-    <Page Include="Installing.xaml">
+    <Page Include="InstallWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

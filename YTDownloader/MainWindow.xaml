@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:YTDownloader"
         mc:Ignorable="d"
-        Title="YTDownloader" Width="350" Height="200" ResizeMode="NoResize">
+        Title="YTDownloader" Width="350" Height="200" ResizeMode="NoResize"
+		Loaded="UpdateStatus">
 	<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*" />

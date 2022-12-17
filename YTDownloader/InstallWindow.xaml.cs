@@ -2,9 +2,9 @@
 
 namespace YTDownloader
 {
-	public partial class Installing : Window
+	public partial class InstallWindow : Window
 	{
-		public Installing()
+		public InstallWindow()
 		{
 			InitializeComponent();
 		}
